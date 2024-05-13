@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 15:31:12 by vafleith          #+#    #+#              #
-#    Updated: 2024/05/13 15:42:02 by vafleith         ###   ########.fr        #
+#    Updated: 2024/05/13 16:00:14 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,11 +24,7 @@ INC = -Iinclude -Ilibft
 
 SRC_DIR = src
 
-PARSE_DIR = parse
-PARSE_SRCS = parse_args.c
-PARSE_SRCS := $(addprefix $(PARSE_DIR)/, $(PARSE_SRCS))
-
-SRCS = main.c $(PARSE_SRCS)
+SRCS = main.c 
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR = build

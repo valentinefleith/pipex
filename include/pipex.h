@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/13 15:46:00 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/13 16:00:27 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@
 # define MALLOC_ERROR 1
 # define ARGUMENT_ERROR 2
 
-int parse_args(int argc, char **argv);
 
 #endif
