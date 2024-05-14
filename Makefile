@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 15:31:12 by vafleith          #+#    #+#              #
-#    Updated: 2024/05/13 16:00:14 by vafleith         ###   ########.fr        #
+#    Updated: 2024/05/13 16:13:45 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,11 @@ LIBFT = $(LIBFT_PATH)/$(LIBFT_NAME)
 INC = -Iinclude -Ilibft
 
 SRC_DIR = src
+MANDATORY = mandatory
+BONUS = bonus
 
 SRCS = main.c 
-SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
+SRCS := $(addprefix $(SRC_DIR)/$(MANDATORY), $(SRCS))
 
 OBJ_DIR = build
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
@@ -59,3 +61,6 @@ fclean: clean
 
 .PHONY: re
 re: fclean all
+
+# .PHONY: bonus
+
