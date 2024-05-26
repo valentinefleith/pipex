@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:42:10 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/18 23:55:48 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/26 13:06:50 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int main(int argc, char **argv, char **env)
 	int pipefd[2];
 	pid_t id;
 
-	//if (argc != 5)
-	//	exit(1);
+	if (argc != 5 || !check_args(argv))
+		exit(1);
 	if (pipe(pipefd) == -1)
 		exit(-1);
 	id = fork();
@@ -68,4 +68,9 @@ int main(int argc, char **argv, char **env)
 		create_child_process(argv, pipefd, env);
 	else
 		create_parent_process(argv, pipefd, env);
+	//Check the existence of infile and outfile
+	//be sure to understand what > does when the file does not exist
+	//Create the necessary pipe (or pipes)
+	//Create a child process for each command
+	//Wait for all the processes to end before writing to the outfile
 }

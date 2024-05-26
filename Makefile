@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 15:31:12 by vafleith          #+#    #+#              #
-#    Updated: 2024/05/14 17:20:47 by vafleith         ###   ########.fr        #
+#    Updated: 2024/05/26 13:08:38 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRC_DIR = src
 MANDATORY = mandatory
 BONUS = bonus
 
-SRCS = main.c
+SRCS = main.c parsing.c
 SRCS := $(addprefix $(SRC_DIR)/$(MANDATORY)/, $(SRCS))
 
 OBJ_DIR = build
