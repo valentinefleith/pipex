@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:42:10 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/29 14:57:04 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:22:38 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,12 @@ int main(int argc, char **argv, char **env)
 	int pipefd[2];
 	pid_t pid1;
 	t_files files;
+	t_cmds cmds;
 
 	//if (argc != 5)
 	//	exit(1);
-	char **paths;
-	paths = get_paths(env);
-	for (int i = 0; paths[i]; i++)
-	{
-		ft_printf("%s\n", paths[i]);
-	}
+	parse_commands(&cmds, argv, env);
+	parse_files(&files, argv);
 	if (pipe(pipefd) == -1)
 		return (1);
 	pid1 = fork();

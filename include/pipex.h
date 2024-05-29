@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/29 15:28:42 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/30 00:22:32 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define MALLOC_ERROR 1
 # define ARGUMENT_ERROR 2
+# define FILE_ERROR 3
 
 typedef struct s_files
 {
@@ -31,8 +32,15 @@ typedef struct s_files
 typedef struct s_cmd
 {
 	char	*path;
+	char *cmd;
 	char	**args;
 }			t_cmd;
+
+typedef struct s_cmds
+{
+	t_cmd cmd1;
+	t_cmd cmd2;
+} t_cmds;
 
 void		create_child_process(char **argv, int *pipefd, char **env);
 void		create_parent_process(char **argv, int *pipefd, char **env);
