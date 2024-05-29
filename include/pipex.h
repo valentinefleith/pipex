@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/26 13:06:50 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/29 10:43:31 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "libft.h"
 # include <stdlib.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/wait.h>
 
 # define MALLOC_ERROR 1
 # define ARGUMENT_ERROR 2
