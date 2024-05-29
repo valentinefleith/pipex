@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/29 14:58:27 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:28:42 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ typedef struct s_files
 
 typedef struct s_cmd
 {
-	char	*cmd_path;
-	char	**cmd_args;
+	char	*path;
+	char	**args;
 }			t_cmd;
 
 void		create_child_process(char **argv, int *pipefd, char **env);
 void		create_parent_process(char **argv, int *pipefd, char **env);
 //int			check_args(char **argv);
 char **get_paths(char **env);
+void ft_free_split(char **strs);
 
 #endif
