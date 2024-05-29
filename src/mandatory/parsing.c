@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/29 15:29:47 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/29 15:47:54 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,27 @@ char **get_paths(char **env)
 	return (ft_split(*env + 5, ':'));
 }
 
+static int can_access(char *cmd_attempt, char **cmd_and_args, char **paths)
+{
+	if (access(cmd_attempt, F_OK) == -1)
+		return 0;
+	if (access(cmd_attempt, X_OK) == -1)
+		free_and_exit(cmd_attempt, cmd_and_args, paths);
+	return 1;
+}
+
 static char *get_right_path(char **cmd_and_args, char **paths)
 {
 	char *command_attempt;
+	char *temp;
 
 	while (paths)
 	{
-		command_attempt = ft_strjoin(*paths, cmd_and_args[0]);
+		temp = ft_strjoin(*paths, "/");
+		if (temp == NULL)
+			return NULL;
+		command_attempt = ft_strjoin(temp, cmd_and_args[0]);
+		free(temp);
 		if (command_attempt == NULL)
 			return NULL;
 		if (can_access(command_attempt, cmd_and_args, paths))
