@@ -6,13 +6,22 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/26 13:08:01 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:59:32 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int check_args(char **argv)
+char **get_paths(char **env)
 {
-	return 1;
+	while (ft_strncmp(*env, "PATH", 4))
+		env++;
+	return (ft_split(*env + 5, ':'));
 }
+
+//t_cmd parse_command(char *arg, char **paths)
+//{
+//	t_cmd cmd;
+//
+//
+//}

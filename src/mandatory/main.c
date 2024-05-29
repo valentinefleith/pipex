@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:42:10 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/29 10:58:38 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/29 14:57:04 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,44 @@
 //
 //}
 
+void create_child_process(char **argv, int *pipefd, char **env)
+{
+		dup2(pipefd[1], STDOUT_FILENO);
+		close(pipefd[0]);
+		close(pipefd[1]);
+		execlp("ping", "ping", "-c", "5", "google.com", NULL);
+}
      
 
 int main(int argc, char **argv, char **env)
 {
 	int pipefd[2];
-	pid_t id;
+	pid_t pid1;
+	t_files files;
 
-	//if (argc != 5 || !check_args(argv))
+	//if (argc != 5)
 	//	exit(1);
+	char **paths;
+	paths = get_paths(env);
+	for (int i = 0; paths[i]; i++)
+	{
+		ft_printf("%s\n", paths[i]);
+	}
 	if (pipe(pipefd) == -1)
 		return (1);
-	id = fork();
-	if (id < 0)
+	pid1 = fork();
+	if (pid1 < 0)
 		return (2);
-	if (id == 0)
+	if (pid1 == 0)
 	{
 		// child process (cmd1)
-		//create_child_process(argv, pipefd, env);
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		execlp("ping", "ping", "-c", "5", "google.com", NULL);
+		create_child_process(argv, pipefd, env);
 	}
-	int id2;
-	id2 = fork();
-	if (id2 < 0)
+	int pid2;
+	pid2 = fork();
+	if (pid2 < 0)
 		return 3;
-	if (id2 == 0)
+	if (pid2 == 0)
 	{
 		dup2(pipefd[0], STDIN_FILENO);
 		close(pipefd[0]);
@@ -64,8 +74,8 @@ int main(int argc, char **argv, char **env)
 	}
 	close(pipefd[0]);
 	close(pipefd[1]);
-	waitpid(id, NULL, 0);
-	waitpid(id2, NULL, 0);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
 	//Check the existence of infile and outfile
 	//be sure to understand what > does when the file does not exist
 	//Create the necessary pipe (or pipes)
