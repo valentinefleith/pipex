@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:42:10 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/30 11:45:05 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/30 14:15:20 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,20 @@ int main(int argc, char **argv, char **env)
 	//if (argc != 5)
 	//	exit(1);
 	parse_commands(&cmds, argv, env);
+	ft_printf("COMMAND 1\n");
 	ft_printf("%s\n", cmds.cmd1.path);
+	ft_printf("%s\n", cmds.cmd1.cmd);
+	for (int i = 0; cmds.cmd1.args[i]; i++)
+	{
+		ft_printf("%s\n", cmds.cmd1.args[i]);
+	}
+	ft_printf("COMMAND 2\n");
+	ft_printf("%s\n", cmds.cmd2.path);
+	ft_printf("%s\n", cmds.cmd2.cmd);
+	for (int i = 0; cmds.cmd2.args[i]; i++)
+	{
+		ft_printf("%s\n", cmds.cmd2.args[i]);
+	}
 	parse_files(&files, argv);
 	//if (pipe(pipefd) == -1)
 	//	return (1);
