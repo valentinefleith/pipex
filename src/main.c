@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:42:10 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/30 00:22:38 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:45:05 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,51 +28,64 @@
 //
 //}
 
-void create_child_process(char **argv, int *pipefd, char **env)
+void create_child_process(t_files *files, t_cmds *cmds, int *pipefd)
 {
-		dup2(pipefd[1], STDOUT_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		execlp("ping", "ping", "-c", "5", "google.com", NULL);
+	dup2(files->infile, STDIN_FILENO);
+	dup2(pipefd[1], STDOUT_FILENO);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	execlp("ping", "ping", "-c", "5", "google.com", NULL);
+}
+
+void create_parent_process(t_files *files, t_cmds *cmds, int *pipefd)
+{
+	return;
 }
      
 
 int main(int argc, char **argv, char **env)
 {
 	int pipefd[2];
-	pid_t pid1;
+	pid_t pid;
 	t_files files;
 	t_cmds cmds;
 
 	//if (argc != 5)
 	//	exit(1);
 	parse_commands(&cmds, argv, env);
+	ft_printf("%s\n", cmds.cmd1.path);
 	parse_files(&files, argv);
-	if (pipe(pipefd) == -1)
-		return (1);
-	pid1 = fork();
-	if (pid1 < 0)
-		return (2);
-	if (pid1 == 0)
-	{
-		// child process (cmd1)
-		create_child_process(argv, pipefd, env);
-	}
-	int pid2;
-	pid2 = fork();
-	if (pid2 < 0)
-		return 3;
-	if (pid2 == 0)
-	{
-		dup2(pipefd[0], STDIN_FILENO);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		execlp("grep", "grep", "rtt", NULL);
-	}
-	close(pipefd[0]);
-	close(pipefd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
+	//if (pipe(pipefd) == -1)
+	//	return (1);
+	//pid = fork();
+	//if (pid < 0)
+	//	return (2);
+	//if (pid == 0)
+	//{
+	//	// child process (cmd1)
+	//	create_child_process(argv, pipefd, env);
+	//}
+	//create_parent_process(argv, pipefd, env);
+
+
+
+
+
+	//int pid2;
+	//pid2 = fork();
+	//if (pid2 < 0)
+	//	return 3;
+	//if (pid2 == 0)
+	//{
+	//	dup2(pipefd[0], STDIN_FILENO);
+	//	close(pipefd[0]);
+	//	close(pipefd[1]);
+	//	execlp("grep", "grep", "rtt", NULL);
+	//}
+	//close(pipefd[0]);
+	//close(pipefd[1]);
+	//waitpid(pid1, NULL, 0);
+	//waitpid(pid2, NULL, 0);
 	//Check the existence of infile and outfile
 	//be sure to understand what > does when the file does not exist
 	//Create the necessary pipe (or pipes)
