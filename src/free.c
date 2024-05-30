@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:18:19 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/29 15:19:26 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:49:48 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,12 @@ void ft_free_split(char **strs)
 		i++;
 	}
 	free(strs);
+}
+
+void free_cmds(t_cmds *cmds)
+{
+	free(cmds->cmd1.path);
+	ft_free_split(cmds->cmd1.args - 1);
+	free(cmds->cmd2.path);
+	ft_free_split(cmds->cmd2.args - 1);
 }

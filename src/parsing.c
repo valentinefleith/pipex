@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/30 11:48:12 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/05/30 19:31:11 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static t_cmd parse_unique_command(char *arg, char **paths)
 	} // essayer bzero ici ?
 	cmd.path = get_right_path(cmd_and_args, paths);
 	cmd.cmd = *cmd_and_args;
-	cmd.args = cmd_and_args++;
+	cmd.args = cmd_and_args + 1;
 	//ft_free_split(cmd_and_args);
 	//STILL TO BE FREED : PATH AND ARGS
 	return cmd;
@@ -73,10 +73,19 @@ void parse_commands(t_cmds *cmds, char **argv, char **env)
 	if (!paths)
 		exit(MALLOC_ERROR);
 	cmd1 = parse_unique_command(argv[2], paths);
+	if (!cmd1.path)
+	{
+		ft_free_split(paths);
+		exit(MALLOC_ERROR);
+	}
 	cmd2 = parse_unique_command(argv[3], paths);
 	ft_free_split(paths);
-	if (!cmd1.path || !cmd2.path)
+	if (!cmd2.path)
+	{
+		free(cmd1.path);
+		ft_free_split(cmd1.args - 1);
 		exit(MALLOC_ERROR); // ICI IL FAUDRA FREE MIEUX JE PENSE
+	}
 	cmds->cmd1 = cmd1;
 	cmds->cmd2 = cmd2;
 }
