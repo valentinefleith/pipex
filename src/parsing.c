@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 10:20:15 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 10:42:51 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ static t_cmd parse_unique_command(char *arg, char **paths)
 	cmd.path = get_right_path(cmd_and_args, paths);
 	cmd.cmd = *cmd_and_args;
 	cmd.args = cmd_and_args + 1;
-	//ft_free_split(cmd_and_args);
-	//STILL TO BE FREED : PATH AND ARGS
 	return cmd;
 }
 
@@ -93,16 +91,16 @@ void parse_commands(t_cmds *cmds, char **argv, char **env)
 	{
 		free(cmd1.path);
 		ft_free_split(cmd1.args - 1);
-		exit(MALLOC_ERROR); // ICI IL FAUDRA FREE MIEUX JE PENSE
+		exit(MALLOC_ERROR);
 	}
 	cmds->cmd1 = cmd1;
 	cmds->cmd2 = cmd2;
 }
 
-void parse_files(t_files *files, char **argv)
+void parse_files(t_files *files, char **argv, t_cmds *cmds)
 {
-	files->infile = open(argv[1], O_RDONLY);
-	files->outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC); // un arg en plus ?
-	//if (files->infile < 0 || files->outfile < 0)
-	//	free_and_exit(FILE_ERROR);
+	files->infile = open(argv[1], O_RDONLY, 0777);
+	files->outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (files->infile < 0 || files->outfile < 0)
+		free_and_exit(FILE_ERROR, cmds);
 }

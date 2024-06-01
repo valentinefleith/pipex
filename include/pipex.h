@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 09:52:20 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 10:40:14 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,10 @@ void create_parent_process(t_files *files, t_cmds *cmds, int *pipefd);
 char **get_paths(char **env);
 void ft_free_split(char **strs);
 void parse_commands(t_cmds *cmds, char **argv, char **env);
-void parse_files(t_files *files, char **argv);
+void parse_files(t_files *files, char **argv, t_cmds *cmds);
 void free_cmds(t_cmds *cmds);
 void print_cmds(t_cmds *cmds);
+void print_files(t_files *files);
+void free_and_exit(int error, t_cmds *cmds);
 
 #endif
