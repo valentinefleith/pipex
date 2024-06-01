@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 12:41:23 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:56:57 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,11 @@ static char *get_right_path(char **cmd_and_args, char **paths)
 		free(temp);
 		if (command_attempt == NULL)
 			return NULL;
-		if (access(command_attempt, F_OK | X_OK) == 0)
+		if (access(command_attempt, F_OK) == 0)
+		{
+			if (access(command_attempt, X_OK) != 0)
+				return permission_error(cmd_and_args[0]);
+		}
 			return (command_attempt);
 		free(command_attempt);
 		i++;

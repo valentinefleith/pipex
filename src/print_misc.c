@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 09:49:54 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 12:41:03 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:58:18 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void print_cmds(t_cmds *cmds)
 	{
 		ft_printf("%s\n", cmds->cmd2.args[i]);
 	}
-
 }
 
 void print_files(t_files *files)
@@ -49,4 +48,11 @@ void ft_file_not_found(char *filename)
 {
 	ft_putstr_fd("bash: no such file or directory: ", 2);
 	ft_putendl_fd(filename, 2);
+}
+
+char *ft_permission_error(char *cmd)
+{
+	ft_putstr_fd("bash: permission denied: ", 2);
+	ft_putendl_fd(cmd, 2);
+	return NULL;
 }
