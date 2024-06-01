@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/05/30 19:31:11 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 10:20:15 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 
 char **get_paths(char **env)
 {
-	while (ft_strncmp(*env, "PATH", 4))
+	int seeking;
+	seeking = -1;
+	while (*env)
+	{
+		seeking = ft_strncmp(*env, "PATH", 4);
+		if (!seeking)
+			break;
 		env++;
+	}
+	if (seeking)
+		return NULL;
 	return (ft_split(*env + 5, ':'));
 }
 
