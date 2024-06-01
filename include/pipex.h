@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 10:40:14 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:07:35 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h>
 
 # define MALLOC_ERROR 1
 # define ARGUMENT_ERROR 2
@@ -43,8 +44,8 @@ typedef struct s_cmds
 	t_cmd cmd2;
 } t_cmds;
 
-void create_child_process(t_files *files, t_cmds *cmds, int *pipefd);
-void create_parent_process(t_files *files, t_cmds *cmds, int *pipefd);
+void child_process(t_files *files, t_cmds *cmds, int *pipefd, char **env);
+void parent_process(t_files *files, t_cmds *cmds, int *pipefd, char **env);
 //int			check_args(char **argv);
 char **get_paths(char **env);
 void ft_free_split(char **strs);
