@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 15:18:19 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 10:42:43 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:40:23 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void ft_free_split(char **strs)
 void free_cmds(t_cmds *cmds)
 {
 	free(cmds->cmd1.path);
-	ft_free_split(cmds->cmd1.args - 1);
+	ft_free_split(cmds->cmd1.args);
 	free(cmds->cmd2.path);
-	ft_free_split(cmds->cmd2.args - 1);
+	ft_free_split(cmds->cmd2.args);
 }
 
 void free_and_exit(int error, t_cmds *cmds)

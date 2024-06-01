@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 12:47:57 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 11:23:00 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:44:18 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void child_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
 	close(files->outfile);
 	execve(cmds->cmd1.path, cmds->cmd1.args, env);
 	ft_putstr_fd("bash: command not found: ", 2);
-	ft_putendl_fd(cmds->cmd1.cmd, 2);
+	ft_putendl_fd(cmds->cmd1.args[0], 2);
 }
 
 void parent_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
@@ -35,5 +35,5 @@ void parent_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
 	close(files->outfile);
 	execve(cmds->cmd2.path, cmds->cmd2.args, env);
 	ft_putstr_fd("bash: command not found: ", 2);
-	ft_putendl_fd(cmds->cmd2.cmd, 2);
+	ft_putendl_fd(cmds->cmd2.args[0], 2);
 }

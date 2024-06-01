@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 10:42:51 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:43:38 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,12 @@ static t_cmd parse_unique_command(char *arg, char **paths)
 	cmd_and_args = ft_split(arg, ' ');
 	if (cmd_and_args == NULL)
 	{
-		cmd.cmd = NULL;
 		cmd.path = NULL;
 		cmd.args = NULL;
 		return cmd;
 	} // essayer bzero ici ?
 	cmd.path = get_right_path(cmd_and_args, paths);
-	cmd.cmd = *cmd_and_args;
-	cmd.args = cmd_and_args + 1;
+	cmd.args = cmd_and_args;
 	return cmd;
 }
 

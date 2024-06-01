@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 11:07:35 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 11:44:26 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ typedef struct s_files
 typedef struct s_cmd
 {
 	char	*path;
-	char *cmd;
 	char	**args;
 }			t_cmd;
 
