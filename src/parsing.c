@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 11:43:38 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:06:06 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ static char *get_right_path(char **cmd_and_args, char **paths)
 {
 	char *command_attempt;
 	char *temp;
+	int i;
 
-	while (paths)
+	i = 0;
+	while (paths[i])
 	{
-		temp = ft_strjoin(*paths, "/");
+		temp = ft_strjoin(paths[i], "/");
 		if (temp == NULL)
 			return NULL;
 		command_attempt = ft_strjoin(temp, cmd_and_args[0]);
@@ -46,8 +48,9 @@ static char *get_right_path(char **cmd_and_args, char **paths)
 		if (access(command_attempt, F_OK | X_OK) == 0)
 			return (command_attempt);
 		free(command_attempt);
-		paths++;
+		i++;
 	}
+	ft_cmd_not_found(cmd_and_args[0]);
 	return NULL;
 }
 
@@ -88,7 +91,7 @@ void parse_commands(t_cmds *cmds, char **argv, char **env)
 	if (!cmd2.path)
 	{
 		free(cmd1.path);
-		ft_free_split(cmd1.args - 1);
+		ft_free_split(cmd1.args);
 		exit(MALLOC_ERROR);
 	}
 	cmds->cmd1 = cmd1;

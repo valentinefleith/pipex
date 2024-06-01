@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 11:44:26 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:09:33 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,6 @@ void free_cmds(t_cmds *cmds);
 void print_cmds(t_cmds *cmds);
 void print_files(t_files *files);
 void free_and_exit(int error, t_cmds *cmds);
+void ft_cmd_not_found(char *cmd);
 
 #endif

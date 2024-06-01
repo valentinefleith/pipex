@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_struct.c                                     :+:      :+:    :+:   */
+/*   print_misc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 09:49:54 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 11:44:49 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:09:13 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,10 @@ void print_files(t_files *files)
 {
 	ft_printf("INFILE:\n %i\n", files->infile);
 	ft_printf("OUTFILE:\n %i\n", files->outfile);
+}
+
+void ft_cmd_not_found(char *cmd)
+{
+	ft_putstr_fd("bash: command not found: ", 2);
+	ft_putendl_fd(cmd, 2);
 }
