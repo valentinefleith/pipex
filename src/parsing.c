@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 12:06:06 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/01 12:41:23 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,15 @@ void parse_commands(t_cmds *cmds, char **argv, char **env)
 void parse_files(t_files *files, char **argv, t_cmds *cmds)
 {
 	files->infile = open(argv[1], O_RDONLY, 0777);
+	if (files->infile < 0)
+	{
+		ft_file_not_found(argv[1]);
+		//free_and_exit(FILE_ERROR, cmds);
+	}
 	files->outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	if (files->infile < 0 || files->outfile < 0)
+	if (files->outfile < 0)
+	{
+		ft_file_not_found(argv[4]);
 		free_and_exit(FILE_ERROR, cmds);
+	}
 }
