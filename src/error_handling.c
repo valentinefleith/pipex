@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 15:18:19 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 11:40:23 by vafleith         ###   ########.fr       */
+/*   Created: 2024/06/07 21:09:22 by vafleith          #+#    #+#             */
+/*   Updated: 2024/06/07 21:09:49 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_free_split(char **strs)
+void	ft_cmd_not_found(char *cmd)
 {
-	int	i;
-
-	i = 0;
-	while (strs[i])
-	{
-		free(strs[i]);
-		i++;
-	}
-	free(strs);
+	ft_putstr_fd("bash: command not found: ", 2);
+	ft_putendl_fd(cmd, 2);
 }
 
-void	free_cmds(t_cmds *cmds)
+void	ft_file_not_found(char *filename)
 {
-	free(cmds->cmd1.path);
-	ft_free_split(cmds->cmd1.args);
-	free(cmds->cmd2.path);
-	ft_free_split(cmds->cmd2.args);
+	ft_putstr_fd("bash: no such file or directory: ", 2);
+	ft_putendl_fd(filename, 2);
 }
 
-void	free_and_exit(int error, t_cmds *cmds)
+char	*ft_permission_error(char *cmd)
 {
-	free_cmds(cmds);
-	exit(error);
+	ft_putstr_fd("bash: permission denied: ", 2);
+	ft_putendl_fd(cmd, 2);
+	return (NULL);
 }

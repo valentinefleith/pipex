@@ -14,12 +14,12 @@
 # define PIPEX_H
 
 # include "libft.h"
+# include <fcntl.h>
+# include <stdio.h>
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <fcntl.h>
-# include <stdio.h>
 
 # define MALLOC_ERROR 1
 # define ARGUMENT_ERROR 2
@@ -39,23 +39,25 @@ typedef struct s_cmd
 
 typedef struct s_cmds
 {
-	t_cmd cmd1;
-	t_cmd cmd2;
-} t_cmds;
+	t_cmd	cmd1;
+	t_cmd	cmd2;
+}			t_cmds;
 
-void child_process(t_files *files, t_cmds *cmds, int *pipefd, char **env);
-void parent_process(t_files *files, t_cmds *cmds, int *pipefd, char **env);
-//int			check_args(char **argv);
-char **get_paths(char **env);
-void ft_free_split(char **strs);
-void parse_commands(t_cmds *cmds, char **argv, char **env);
-void parse_files(t_files *files, char **argv, t_cmds *cmds);
-void free_cmds(t_cmds *cmds);
-void print_cmds(t_cmds *cmds);
-void print_files(t_files *files);
-void free_and_exit(int error, t_cmds *cmds);
-void ft_cmd_not_found(char *cmd);
-void ft_file_not_found(char *filename);
-char *ft_permission_error(char *cmd);
+void		child_process(t_files *files, t_cmds *cmds, int *pipefd,
+				char **env);
+void		parent_process(t_files *files, t_cmds *cmds, int *pipefd,
+				char **env);
+// int			check_args(char **argv);
+char		**get_paths(char **env);
+void		ft_free_split(char **strs);
+void		parse_commands(t_cmds *cmds, char **argv, char **env);
+void		parse_files(t_files *files, char **argv, t_cmds *cmds);
+void		free_cmds(t_cmds *cmds);
+void		print_cmds(t_cmds *cmds);
+void		print_files(t_files *files);
+void		free_and_exit(int error, t_cmds *cmds);
+void		ft_cmd_not_found(char *cmd);
+void		ft_file_not_found(char *filename);
+char		*ft_permission_error(char *cmd);
 
 #endif

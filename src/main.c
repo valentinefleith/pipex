@@ -12,12 +12,12 @@
 
 #include "pipex.h"
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	int pipefd[2];
-	pid_t pid;
-	t_files files;
-	t_cmds cmds;
+	int		pipefd[2];
+	pid_t	pid;
+	t_files	files;
+	t_cmds	cmds;
 
 	if (argc != 5)
 		exit(1);

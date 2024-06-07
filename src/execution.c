@@ -12,7 +12,7 @@
 
 #include "pipex.h"
 
-void child_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
+void	child_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
 {
 	close(pipefd[0]);
 	dup2(files->infile, STDIN_FILENO);
@@ -26,7 +26,7 @@ void child_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
 	exit(1);
 }
 
-void parent_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
+void	parent_process(t_files *files, t_cmds *cmds, int *pipefd, char **env)
 {
 	close(pipefd[1]);
 	dup2(pipefd[0], STDIN_FILENO);
