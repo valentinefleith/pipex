@@ -6,39 +6,11 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 12:54:39 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 14:50:22 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-int is_full_space(char *str)
-{
-	while (*str)
-	{
-		if (!ft_strchr(" \n\t\r\f\v", *str))
-			return 0;
-		str++;
-	}
-	return 1;
-}
-
-char	**get_paths(char **env)
-{
-	int	seeking;
-
-	seeking = -1;
-	while (*env)
-	{
-		seeking = ft_strncmp(*env, "PATH", 4);
-		if (!seeking)
-			break ;
-		env++;
-	}
-	if (seeking)
-		return (NULL);
-	return (ft_split(*env + 5, ':'));
-}
 
 static char	*get_right_path(char **cmd_and_args, char **paths)
 {
@@ -65,7 +37,7 @@ static char	*get_right_path(char **cmd_and_args, char **paths)
 		free(command_attempt);
 		i++;
 	}
-	ft_cmd_not_found(cmd_and_args[0]);
+	//ft_cmd_not_found(cmd_and_args[0]);
 	return (NULL);
 }
 
@@ -73,7 +45,8 @@ static char *handle_entire_path(char *cmd_path)
 {
 	if (access(cmd_path, F_OK) != 0)
 	{
-		ft_file_not_found(cmd_path);
+		if (ft_strchr(cmd_path, '/'))
+			ft_file_not_found(cmd_path);
 		return (NULL);
 	}
 	if (access(cmd_path, X_OK) != 0)
@@ -95,10 +68,11 @@ static t_cmd	parse_unique_command(char *arg, char **paths)
 	cmd_and_args = ft_split(arg, ' ');
 	if (cmd_and_args == NULL)
 	{
-		ft_free_split(paths);
+		if (paths)
+			ft_free_split(paths);
 		exit(MALLOC_ERROR);
 	}
-	if (ft_strchr(cmd_and_args[0], '/'))
+	if (ft_strchr(cmd_and_args[0], '/') || !paths)
 		cmd.path = handle_entire_path(cmd_and_args[0]);
 	else 
 		cmd.path = get_right_path(cmd_and_args, paths);
@@ -113,20 +87,22 @@ void	parse_commands(t_cmds *cmds, char **argv, char **env)
 	char	**paths;
 
 	paths = get_paths(env);
-	if (!paths)
-		exit(MALLOC_ERROR);
+	
+	//if (!paths)
+	//	exit(MALLOC_ERROR);
 	cmd1 = parse_unique_command(argv[2], paths);
 	if (!cmd1.path)
-		ft_cmd_not_found(" ");
+		ft_cmd_not_found(argv[2]);
 	cmd2 = parse_unique_command(argv[3], paths);
-	ft_free_split(paths);
+	if (paths)
+		ft_free_split(paths);
 	if (!cmd2.path)
 	{
 		if (cmd1.path)
 			free(cmd1.path);
 		if (cmd1.args)
 			ft_free_split(cmd1.args);
-		ft_cmd_not_found(" ");
+		ft_cmd_not_found(argv[3]);
 		exit(127);
 	}
 	cmds->cmd1 = cmd1;
