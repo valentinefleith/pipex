@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 12:43:54 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 12:54:39 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,16 @@ void	parse_commands(t_cmds *cmds, char **argv, char **env)
 		exit(MALLOC_ERROR);
 	cmd1 = parse_unique_command(argv[2], paths);
 	if (!cmd1.path)
-	{
-		ft_cmd_not_found(cmd1.path);
-	//	ft_free_split(paths);
-	//	exit(127);
-	}
+		ft_cmd_not_found(" ");
 	cmd2 = parse_unique_command(argv[3], paths);
 	ft_free_split(paths);
 	if (!cmd2.path)
 	{
-		free(cmd1.path);
-		ft_free_split(cmd1.args);
+		if (cmd1.path)
+			free(cmd1.path);
+		if (cmd1.args)
+			ft_free_split(cmd1.args);
+		ft_cmd_not_found(" ");
 		exit(127);
 	}
 	cmds->cmd1 = cmd1;
