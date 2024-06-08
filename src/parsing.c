@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 11:28:32 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 11:46:59 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,18 @@ static char	*get_right_path(char **cmd_and_args, char **paths)
 	return (NULL);
 }
 
+static char *handle_entire_path(char *cmd_path)
+{
+	if (access(cmd_path, F_OK) != 0)
+	{
+		ft_file_not_found(cmd_path);
+		return (NULL);
+	}
+	if (access(cmd_path, X_OK) != 0)
+		return (ft_permission_error(cmd_path));
+	return (cmd_path);
+}
+
 static t_cmd	parse_unique_command(char *arg, char **paths)
 {
 	t_cmd	cmd;
@@ -66,17 +78,12 @@ static t_cmd	parse_unique_command(char *arg, char **paths)
 	cmd_and_args = ft_split(arg, ' ');
 	if (cmd_and_args == NULL)
 	{
-		cmd.path = NULL;
-		cmd.args = NULL;
-		return (cmd);
+		ft_free_split(paths);
+		exit(MALLOC_ERROR);
 	}
-	if (access(cmd_and_args[0], F_OK) == 0)
-	{
-		if (access(cmd_and_args[0], X_OK) != 0)
-			cmd.path = ft_permission_error(cmd_and_args[0]);
-		cmd.path = cmd_and_args[0];
-	}
-	else
+	if (ft_strchr(cmd_and_args[0], '/'))
+		cmd.path = handle_entire_path(cmd_and_args[0]);
+	else 
 		cmd.path = get_right_path(cmd_and_args, paths);
 	cmd.args = cmd_and_args;
 	return (cmd);
@@ -95,7 +102,7 @@ void	parse_commands(t_cmds *cmds, char **argv, char **env)
 	if (!cmd1.path)
 	{
 		ft_free_split(paths);
-		exit(128);
+		exit(127);
 	}
 	cmd2 = parse_unique_command(argv[3], paths);
 	ft_free_split(paths);
@@ -103,7 +110,7 @@ void	parse_commands(t_cmds *cmds, char **argv, char **env)
 	{
 		free(cmd1.path);
 		ft_free_split(cmd1.args);
-		exit(MALLOC_ERROR);
+		exit(127);
 	}
 	cmds->cmd1 = cmd1;
 	cmds->cmd2 = cmd2;
