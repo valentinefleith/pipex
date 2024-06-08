@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 16:39:39 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 16:49:22 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static char	*get_right_path(char **cmd_and_args, char **paths)
 		free(command_attempt);
 		i++;
 	}
-	//ft_cmd_not_found(cmd_and_args[0]);
 	return (NULL);
 }
 
@@ -125,7 +124,12 @@ void	parse_files(t_files *files, char **argv, t_cmds *cmds)
 	files->outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (files->outfile < 0)
 	{
-		ft_file_not_found(argv[4]);
+		if (access(argv[4], W_OK) != 0)
+		{
+			ft_putstr_fd("bash: permission denied: ", 2);
+			ft_putendl_fd(argv[4], 2);
+		}
+		//ft_file_not_found(argv[4]);
 		free_and_exit(FILE_ERROR, cmds);
 	}
 }
