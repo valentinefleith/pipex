@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/01 12:58:23 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 12:13:31 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void		child_process(t_files *files, t_cmds *cmds, int *pipefd,
 				char **env);
 void		parent_process(t_files *files, t_cmds *cmds, int *pipefd,
 				char **env);
+void 	exec_cmd2_and_exit(t_files *files, t_cmds *cmds, char **env);
 // int			check_args(char **argv);
 char		**get_paths(char **env);
 void		ft_free_split(char **strs);

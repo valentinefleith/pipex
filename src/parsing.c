@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 11:46:59 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 12:12:05 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,11 @@ void	parse_commands(t_cmds *cmds, char **argv, char **env)
 	if (!paths)
 		exit(MALLOC_ERROR);
 	cmd1 = parse_unique_command(argv[2], paths);
-	if (!cmd1.path)
-	{
-		ft_free_split(paths);
-		exit(127);
-	}
+	//if (!cmd1.path)
+	//{
+	//	ft_free_split(paths);
+	//	exit(127);
+	//}
 	cmd2 = parse_unique_command(argv[3], paths);
 	ft_free_split(paths);
 	if (!cmd2.path)
