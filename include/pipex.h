@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 12:13:31 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 12:28:45 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ void		free_and_exit(int error, t_cmds *cmds);
 void		ft_cmd_not_found(char *cmd);
 void		ft_file_not_found(char *filename);
 char		*ft_permission_error(char *cmd);
+int is_full_space(char *str);
 
 #endif

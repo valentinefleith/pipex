@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:42:10 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 12:12:59 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 12:33:57 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **env)
 	t_files	files;
 	t_cmds	cmds;
 
-	if (argc != 5)
+	if (argc != 5 || !argv[2][0] || !argv[3][0])
 		exit(1);
 	parse_commands(&cmds, argv, env);
 	parse_files(&files, argv, &cmds);

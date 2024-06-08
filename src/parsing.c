@@ -6,11 +6,22 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/26 13:07:11 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/08 12:12:05 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/08 12:43:54 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+int is_full_space(char *str)
+{
+	while (*str)
+	{
+		if (!ft_strchr(" \n\t\r\f\v", *str))
+			return 0;
+		str++;
+	}
+	return 1;
+}
 
 char	**get_paths(char **env)
 {
@@ -74,7 +85,13 @@ static t_cmd	parse_unique_command(char *arg, char **paths)
 {
 	t_cmd	cmd;
 	char	**cmd_and_args;
-
+	
+	if (is_full_space(arg))
+	{
+		cmd.path = NULL;
+		cmd.args = NULL;
+		return cmd;
+	}
 	cmd_and_args = ft_split(arg, ' ');
 	if (cmd_and_args == NULL)
 	{
@@ -99,11 +116,12 @@ void	parse_commands(t_cmds *cmds, char **argv, char **env)
 	if (!paths)
 		exit(MALLOC_ERROR);
 	cmd1 = parse_unique_command(argv[2], paths);
-	//if (!cmd1.path)
-	//{
+	if (!cmd1.path)
+	{
+		ft_cmd_not_found(cmd1.path);
 	//	ft_free_split(paths);
 	//	exit(127);
-	//}
+	}
 	cmd2 = parse_unique_command(argv[3], paths);
 	ft_free_split(paths);
 	if (!cmd2.path)
