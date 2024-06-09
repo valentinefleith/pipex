@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/09 14:45:51 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/09 15:41:48 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	fork_error(void);
 
 void	ft_free_tab(char **strs);
 
-int		open_infile(char *filename, char **paths);
-int		open_outfile(char *filename, char **paths);
-char	*find_right_path(char **paths, char **cmd);
+int		open_infile(char *filename, char **paths, int *pipefd);
+int		open_outfile(char *filename, char **paths, int *pipefd);
+char	*find_right_path(char **paths, char **cmd, int *pipefd, int file);
 char	**get_paths(char **env);
 
 #endif

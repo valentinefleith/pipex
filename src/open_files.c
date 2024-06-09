@@ -6,13 +6,13 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 13:37:21 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/09 14:42:51 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:02:35 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	open_infile(char *filename, char **paths)
+int	open_infile(char *filename, char **paths, int *pipefd)
 {
 	int	infile;
 
@@ -31,10 +31,12 @@ int	open_infile(char *filename, char **paths)
 	}
 	if (paths)
 		ft_free_tab(paths);
+	close(pipefd[0]);
+	close(pipefd[1]);
 	exit(1);
 }
 
-int	open_outfile(char *filename, char **paths)
+int	open_outfile(char *filename, char **paths, int *pipefd)
 {
 	int	outfile;
 
@@ -43,10 +45,12 @@ int	open_outfile(char *filename, char **paths)
 		return (outfile);
 	if (access(filename, W_OK) != 0)
 	{
-		ft_putstr_fd("bash: permission denined: ", 2);
+		ft_putstr_fd("bash: permission denied: ", 2);
 		ft_putendl_fd(filename, 2);
 	}
 	if (paths)
 		ft_free_tab(paths);
+	close(pipefd[0]);
+	close(pipefd[1]);
 	exit(1);
 }
