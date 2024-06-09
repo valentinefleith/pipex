@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 15:31:12 by vafleith          #+#    #+#              #
-#    Updated: 2024/06/08 14:17:45 by vafleith         ###   ########.fr        #
+#    Updated: 2024/06/09 14:40:20 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ INC = -Iinclude -Ilibft
 
 SRC_DIR = src
 
-SRCS = main.c parsing.c free.c execution.c error_handling.c parsing_utils.c
+SRCS = error_messages.c free.c main.c open_files.c paths_handling.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR = build
