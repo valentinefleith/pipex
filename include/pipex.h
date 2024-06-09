@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:43:31 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/09 15:41:48 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:41:11 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 void	argument_error(void);
 void	pipe_error(void);
 void	fork_error(void);
+void no_such_file(char *filename);
+void cmd_not_found(char *cmd_name);
+void permission_denied(char *name);
 
 void	ft_free_tab(char **strs);
 

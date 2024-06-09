@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 13:40:24 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/09 16:38:18 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/09 17:40:29 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,14 @@ static char	*get_path_no_env(char *cmd_name)
 	if (access(cmd_name, F_OK) != 0)
 	{
 		if (ft_strchr(cmd_name, '/'))
-		{
-			ft_putstr_fd("bash: not such file or directory: ", 2);
-			ft_putendl_fd(cmd_name, 2);
-		}
+			no_such_file(cmd_name);
 		else
-		{
-			ft_putstr_fd("bash: command not found: ", 2);
-			ft_putendl_fd(cmd_name, 2);
-		}
+			cmd_not_found(cmd_name);
 		return (NULL);
 	}
 	if (access(cmd_name, X_OK) != 0)
 	{
-		ft_putstr_fd("bash: permission denied: ", 2);
-		ft_putendl_fd(cmd_name, 2);
+		permission_denied(cmd_name);
 		return (NULL);
 	}
 	return (ft_strdup(cmd_name));
@@ -57,8 +50,7 @@ static char	*get_path_env(char *cmd_name, char **paths)
 		{
 			if (access(cmd_attempt, X_OK) == 0)
 				return (cmd_attempt);
-			ft_putstr_fd("bash: permission denied: ", 2);
-			ft_putendl_fd(cmd_name, 2);
+			permission_denied(cmd_name);
 		}
 		free(cmd_attempt);
 		i++;
@@ -88,7 +80,6 @@ char	*find_right_path(char **paths, char **cmd, int *pipefd, int file)
 		right_path = get_path_env(cmd[0], paths);
 	if (!right_path)
 	{
-		// fprintf(stderr, "cmd: %s\n", cmd[0]);
 		if (cmd[0] && ft_strnstr(cmd[0], "./", 2) != 0)
 		{
 			if (paths)
