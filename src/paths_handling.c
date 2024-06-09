@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 13:40:24 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/09 17:40:29 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:36:12 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,13 @@ static char	*get_path_env(char *cmd_name, char **paths)
 char	*find_right_path(char **paths, char **cmd, int *pipefd, int file)
 {
 	char	*right_path;
+
 	if (!cmd[0])
 	{
 		ft_putendl_fd("bash: command not found", 2);
 		right_path = NULL;
-		if (paths)
-			ft_free_tab(paths);
 		ft_free_tab(cmd);
-		close(pipefd[1]);
-		close(pipefd[0]);
-		close(file);		
-		exit(127);
-
+		free_close_and_exit(paths, pipefd, file, 127);
 	}
 	else if (ft_strchr(cmd[0], '/') || !paths)
 		right_path = get_path_no_env(cmd[0]);
@@ -82,21 +77,11 @@ char	*find_right_path(char **paths, char **cmd, int *pipefd, int file)
 	{
 		if (cmd[0] && ft_strnstr(cmd[0], "./", 2) != 0)
 		{
-			if (paths)
-				ft_free_tab(paths);
 			ft_free_tab(cmd);
-			close(pipefd[1]);
-			close(pipefd[0]);
-			close(file);
-			exit(126);
+			free_close_and_exit(paths, pipefd, file, 126);
 		}
-		if (paths)
-			ft_free_tab(paths);
 		ft_free_tab(cmd);
-		close(pipefd[1]);
-		close(pipefd[0]);
-		close(file);		
-		exit(127);
+		free_close_and_exit(paths, pipefd, file, 127);
 	}
 	return (right_path);
 }

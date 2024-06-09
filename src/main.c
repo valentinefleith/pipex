@@ -6,66 +6,11 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 12:49:50 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/09 17:30:07 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/09 19:40:51 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-
-
-static void	handle_exit_status1(int *exit_status1)
-{
-	if (WIFEXITED(*exit_status1))
-	{
-		*exit_status1 = WEXITSTATUS(*exit_status1);
-		if (*exit_status1 == 141)
-			*exit_status1 = 0;
-	}
-	else if (WIFSIGNALED(*exit_status1))
-	{
-		*exit_status1 = 128 + WTERMSIG(*exit_status1);
-		if (*exit_status1 == 141)
-			*exit_status1 = 0;
-	}
-}
-
-static void	handle_exit_status2(int *exit_status2)
-{
-	if (WIFEXITED(*exit_status2))
-	{
-		*exit_status2 = WEXITSTATUS(*exit_status2);
-		if (*exit_status2 == 141)
-			*exit_status2 = 0;
-	}
-	else if (WIFSIGNALED(*exit_status2))
-	{
-		*exit_status2 = 128 + WTERMSIG(*exit_status2);
-		if (*exit_status2 == 141)
-			*exit_status2 = 0;
-		if (*exit_status2 == 139)
-			*exit_status2 = 126;
-	}
-}
-
-void handle_exit(int *exit_status1, int *exit_status2, pid_t pid1,  pid_t pid2) 
-{
-	pid_t current_pid = 0;
-	int	status = 0;
-	
-	current_pid = waitpid(-1, &status, 0);
-    while (current_pid > 0) 
-	{
-        if (current_pid == pid1) 
-            *exit_status1 = status;
-		else if (current_pid == pid2) 
-            *exit_status2 = status;
-        current_pid = waitpid(-1, &status, 0);
-    }
-
-    handle_exit_status1(exit_status1);
-    handle_exit_status2(exit_status2);
-}
 
 static void	exec_cmd(char *cmd_path, char **cmd, char **env, char **paths)
 {
@@ -86,13 +31,7 @@ static void	create_child2(char **argv, int *pipefd, char **env, char **paths)
 	outfile = open_outfile(argv[4], paths, pipefd);
 	cmd2 = ft_split(argv[3], ' ');
 	if (!cmd2)
-	{
-		ft_free_tab(paths);
-		close(pipefd[1]);
-		close(pipefd[0]);
-		close(outfile);
-		exit(1);
-	}
+		free_close_and_exit(paths, pipefd, outfile, 1);
 	cmd2_path = find_right_path(paths, cmd2, pipefd, outfile);
 	dup2(pipefd[0], STDIN_FILENO);
 	dup2(outfile, STDOUT_FILENO);
@@ -111,13 +50,7 @@ static void	create_child1(char **argv, int *pipefd, char **env, char **paths)
 	infile = open_infile(argv[1], paths, pipefd);
 	cmd1 = ft_split(argv[2], ' ');
 	if (!cmd1)
-	{
-		ft_free_tab(paths);
-		close(pipefd[0]);
-		close(pipefd[1]);
-		close(infile);
-		exit(1);
-	}
+		free_close_and_exit(paths, pipefd, infile, 1);
 	cmd1_path = find_right_path(paths, cmd1, pipefd, infile);
 	dup2(infile, STDIN_FILENO);
 	dup2(pipefd[1], STDOUT_FILENO);
@@ -132,8 +65,6 @@ int	main(int argc, char **argv, char **env)
 	int		pipefd[2];
 	pid_t	pids[2];
 	char	**paths;
-	int exit_status1 = 0;
-	int exit_status2 = 0;
 
 	if (argc != 5)
 		argument_error();
@@ -152,8 +83,7 @@ int	main(int argc, char **argv, char **env)
 		create_child2(argv, pipefd, env, paths);
 	close(pipefd[0]);
 	close(pipefd[1]);
-	handle_exit(&exit_status1, &exit_status2, pids[0], pids[1]);
 	if (paths)
 		ft_free_tab(paths);
-	return exit_status2;
+	return (handle_exit(pids));
 }

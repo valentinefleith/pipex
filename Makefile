@@ -6,7 +6,7 @@
 #    By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 15:31:12 by vafleith          #+#    #+#              #
-#    Updated: 2024/06/09 14:40:20 by vafleith         ###   ########.fr        #
+#    Updated: 2024/06/09 19:42:21 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ INC = -Iinclude -Ilibft
 
 SRC_DIR = src
 
-SRCS = error_messages.c free.c main.c open_files.c paths_handling.c
+SRCS = pipe_error_messages.c free.c main.c open_files.c paths_handling.c \
+	   exit_status.c bash_error_messages.c
 SRCS := $(addprefix $(SRC_DIR)/, $(SRCS))
 
 OBJ_DIR = build
