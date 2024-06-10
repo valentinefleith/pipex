@@ -6,7 +6,7 @@
 /*   By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 13:37:21 by vafleith          #+#    #+#             */
-/*   Updated: 2024/06/09 16:02:35 by vafleith         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:07:04 by vafleith         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,9 @@ int	open_infile(char *filename, char **paths, int *pipefd)
 	if (infile != -1)
 		return (infile);
 	if (access(filename, F_OK) != 0)
-	{
-		ft_putstr_fd("bash: no such file or directory: ", 2);
-		ft_putendl_fd(filename, 2);
-	}
+		no_such_file(filename);
 	else if (access(filename, R_OK) != 0)
-	{
-		ft_putstr_fd("bash: permission denied: ", 2);
-		ft_putendl_fd(filename, 2);
-	}
+		permission_denied(filename);
 	if (paths)
 		ft_free_tab(paths);
 	close(pipefd[0]);
@@ -44,10 +38,7 @@ int	open_outfile(char *filename, char **paths, int *pipefd)
 	if (outfile != -1)
 		return (outfile);
 	if (access(filename, W_OK) != 0)
-	{
-		ft_putstr_fd("bash: permission denied: ", 2);
-		ft_putendl_fd(filename, 2);
-	}
+		permission_denied(filename);
 	if (paths)
 		ft_free_tab(paths);
 	close(pipefd[0]);
