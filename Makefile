@@ -6,15 +6,15 @@
 #    By: vafleith <vafleith@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/28 15:31:12 by vafleith          #+#    #+#              #
-#    Updated: 2024/06/09 19:42:21 by vafleith         ###   ########.fr        #
+#    Updated: 2024/06/14 00:11:44 by vafleith         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
 CC = cc
-CFLAGS = -Wall -Wextra -g3
-#CFLAGS += -Werror
+CFLAGS = -Wall -Wextra
+CFLAGS += -Werror
 
 LIBFT_PATH = libft
 LIBFT_NAME = libft.a
